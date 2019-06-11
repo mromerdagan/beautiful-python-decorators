@@ -8,17 +8,17 @@ def trace(f):
 		return value
 	return inner
 
-#def beautiful_trace(f):
-#	f.rec_depth = 0
-#	def inner(x):
-#		print '|  ' * f.rec_depth + '|--', f.__name__, x
-#		f.rec_depth += 1
-#		value = f(x)
-#		f.rec_depth -= 1
-#		print '|  ' * f.rec_depth + '|++', 'return', repr(value)
-#		return value
-#	return inner
-#
+def beautiful_trace(f):
+	f.rec_depth = 0
+	def inner(x):
+		print '|  ' * f.rec_depth + '|--', f.__name__, x
+		f.rec_depth += 1
+		value = f(x)
+		f.rec_depth -= 1
+		print '|  ' * f.rec_depth + '|++', 'return', repr(value)
+		return value
+	return inner
+
 #def profile(func):
 #	import time
 #	func.depth = 0
@@ -80,3 +80,25 @@ def trace(f):
 #		return fib(n-1) + fib(n-2)
 ##flatten_list([1,2,3,[1,5,[345,1]],[1,2,3]])
 #print fib(46)
+#
+
+## Class as decorators:
+## Class needs to get func in constructor, and also be callable
+
+#import functools
+#
+#class CountCalls:
+#    def __init__(self, func):
+#        functools.update_wrapper(self, func)
+#        self.func = func
+#        self.num_calls = 0
+#
+#    def __call__(self, *args, **kwargs):
+#        self.num_calls += 1
+#        print(f"Call {self.num_calls} of {self.func.__name__!r}")
+#        return self.func(*args, **kwargs)
+#
+#@CountCalls
+#def say_whee():
+#    print("Whee!")
+#
