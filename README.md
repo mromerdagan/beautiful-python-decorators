@@ -10,6 +10,8 @@ terminology of 'decoration' it becomes easier: the decorator gets a function and
 returns a new decorated one. The decoration can be: adding functionality, adding
 debug information, and so forth*
 
+*All of the decorators code is in beautiful_decorators.py*
+
 ### trace
 This decorator shows all calls to a function, and return values. This becomes 
 handy when investigating the nature of complex functions, especially if they're
