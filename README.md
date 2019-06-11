@@ -1,11 +1,21 @@
 # beautiful-python-decorators
-Just a python script with many beautiful decorators
+Just a collection of many beautiful python decorators
+
+*If you're unfamiliar with python decorators, you can read 
+[this great article](https://realpython.com/primer-on-python-decorators/)*
+
+*In short: python decorator is a function that get another function as parameter,
+and returns a new function. This might sound cumbersome, but if you use the
+terminology of 'decoration' it becomes easier: the decorator gets a function and
+returns a new decorated one. The decoration can be: adding functionality, adding
+debug information, and so forth*
 
 ### trace
-Show all calls to a function, and return values. This becomes handy when
-investigating the nature of complex functions, especially if they're recursive.
+This decorator shows all calls to a function, and return values. This becomes 
+handy when investigating the nature of complex functions, especially if they're
+recursive.
 
-For example:
+Usage example:
 ~~~~
 from beautiful_decorators import trace
 
@@ -20,8 +30,7 @@ if __name__ == "__main__":
 
 ~~~~
 
-Would result in:
-
+Result:
 ~~~~
 ('rec_factorial', 3)
 ('rec_factorial', 2)
