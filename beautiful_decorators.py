@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import time
 
 def trace(f):
 	def inner(x):
@@ -11,33 +12,23 @@ def trace(f):
 def beautiful_trace(f):
 	f.rec_depth = 0
 	def inner(x):
-		print '|  ' * f.rec_depth + '|--', f.__name__, x
+		print('|  ' * f.rec_depth + '|--', f.__name__, x)
 		f.rec_depth += 1
 		value = f(x)
 		f.rec_depth -= 1
-		print '|  ' * f.rec_depth + '|++', 'return', repr(value)
+		print('|  ' * f.rec_depth + '|++', 'return', repr(value))
 		return value
 	return inner
 
-#def profile(func):
-#	import time
-#	func.depth = 0
-#	def inner(x):
-#		func.depth += 1
-#		start = time.time()
-#		if func.depth == 1:
-#			print "D: ",start
-#		ret = func(x)
-#		end = time.time()
-#		if func.depth == 1:
-#			print "D: ",end
-#		func.depth -= 1
-#		if func.depth == 0:
-#			print "D:", end, start
-#			print func.__name__, x, "({})".format(end-start)
-#		return ret
-#	return inner
-#
+def profile(func):
+	def inner(*kargs, **kwargs):
+		start = time.time()
+		ret = func(*kargs, **kwargs)
+		end = time.time()
+		print("Total time: {}".format(end-start))
+		return ret
+	return inner
+
 #def memoize(f):
 #	f.cache = {}
 #	def g(x):

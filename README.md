@@ -12,7 +12,7 @@ debug information, and so forth*
 
 *All of the decorators code is in beautiful_decorators.py*
 
-### trace
+### @trace
 This decorator shows all calls to a function, and return values. This becomes 
 handy when investigating the nature of complex functions, especially if they're
 recursive.
@@ -34,14 +34,14 @@ if __name__ == "__main__":
 
 Result:
 ~~~~
-('rec_factorial', 3)
-('rec_factorial', 2)
-('rec_factorial', 1)
-('rec_factorial', 0)
-('return', '1')
-('return', '1')
-('return', '2')
-('return', '6')
+rec_factorial 3
+rec_factorial 2
+rec_factorial 1
+rec_factorial 0
+return 1
+return 1
+return 2
+return 6
 6
 ~~~~
 
@@ -75,3 +75,26 @@ Result:
 6
 ~~~~
 
+### @profile
+If you know `timeit`, this decorator does the same trick: It will measure the
+time of execution of a function.
+
+Usage example:
+~~~~
+
+import time
+from beautiful_decorators import profile
+
+@profile
+def longtime_foo():
+	time.sleep(4)
+
+
+if __name__ == "__main__":
+	longtime_foo()
+~~~~
+
+Result:
+~~~~
+Total time: 4.004046440124512
+~~~~
