@@ -1,6 +1,11 @@
 # beautiful-python-decorators
 Just a collection of many beautiful python decorators
 
+The decorators implementaion can be found at 
+[beautiful_decorators.py](https://github.com/mromerdagan/beautiful-python-decorators/blob/master/beautiful_decorators.py)
+
+Below you can find usage examples to all of the decorators + explanations
+
 *If you're unfamiliar with python decorators, you can read 
 [this great article](https://realpython.com/primer-on-python-decorators/)*
 
@@ -10,7 +15,6 @@ terminology of 'decoration' it becomes easier: the decorator gets a function and
 returns a new decorated one. The decoration can be: adding functionality, adding
 debug information, and so forth*
 
-*All of the decorators code is in beautiful_decorators.py*
 
 ### @trace
 This decorator shows all calls to a function, and return values. This becomes 
