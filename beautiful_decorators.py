@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import time
+import functools
 
 def trace(f):
 	def inner(x):
@@ -11,6 +12,7 @@ def trace(f):
 
 def beautiful_trace(f):
 	f.rec_depth = 0
+	@functools.wraps(f)
 	def inner(x):
 		print('|  ' * f.rec_depth + '|--', f.__name__, x)
 		f.rec_depth += 1
@@ -29,14 +31,15 @@ def profile(func):
 		return ret
 	return inner
 
-#def memoize(f):
-#	f.cache = {}
-#	def g(x):
-#		if x not in f.cache:
-#			f.cache[x] = f(x)
-#		return f.cache[x]
-#	return g
-#
+def memoize(f):
+	f.cache = {}
+	@functools.wraps(f)
+	def g(x):
+		if x not in f.cache:
+			f.cache[x] = f(x)
+		return f.cache[x]
+	return g
+
 #def supress_output(func):
 #	def inner(*args):
 #		old_stdout = sys.stdout
@@ -46,21 +49,6 @@ def profile(func):
 #		sys.stdout = old_stdout
 #		return ret
 #	return inner
-#
-#@trace
-#def foo(msg):
-#	print msg
-#
-#
-#@profile
-#def flatten_list(nested):
-#	ret = []
-#	if isinstance(nested, list):
-#		for i in nested:
-#			ret += flatten_list(i)
-#		return ret
-#	else:
-#		return [nested]
 #
 #@profile
 #@memoize
