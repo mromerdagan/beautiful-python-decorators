@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+import os
+import sys
 import time
 import functools
 
@@ -40,26 +42,15 @@ def memoize(f):
 		return f.cache[x]
 	return g
 
-#def supress_output(func):
-#	def inner(*args):
-#		old_stdout = sys.stdout
-#		sys.stdout = open(os.devnull, "w")
-#		ret = func(*args)
-#		sys.stdout.close()
-#		sys.stdout = old_stdout
-#		return ret
-#	return inner
-#
-#@profile
-#@memoize
-#def fib(n):
-#	if n is 0 or n is 1:
-#		return 1
-#	else:
-#		return fib(n-1) + fib(n-2)
-##flatten_list([1,2,3,[1,5,[345,1]],[1,2,3]])
-#print fib(46)
-#
+def supress_output(func):
+	def inner(*args):
+		old_stdout = sys.stdout
+		sys.stdout = open(os.devnull, "w")
+		ret = func(*args)
+		sys.stdout.close()
+		sys.stdout = old_stdout
+		return ret
+	return inner
 
 ## Class as decorators:
 ## Class needs to get func in constructor, and also be callable

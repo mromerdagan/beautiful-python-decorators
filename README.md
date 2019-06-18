@@ -232,3 +232,74 @@ With n>5 this is critical runtime improvement. Of course, nothing is for free-
 this improvement costs us with memory being used to store the results but most
 of the time it worth it.
 
+### @supress_output
+Generally speacking, functions can do two things: return values, and have "side
+effects". Many times they do both. For example, some functions can calculate
+some value (to return) and print something regarding the process (side effect).
+However, you might want to supress output (if this is a deamno that runs in bg,
+for instace).  
+This is where @supress_output comes in.
+
+Let's see an example:  
+Suppose we have a function that gets a list of integers and returns the first
+even element, if any. It would look something like this:
+
+~~~~
+def find_even(l):
+	for i in l:
+		print(f'Checking {i}')
+		if i % 2 == 0:
+			return i
+	else:
+		return None
+	
+
+if __name__ == "__main__":
+	even = find_even([1,3,4])
+	if even:
+		print(f'Found: {even}')
+~~~~
+
+For this input [1,3,4] output would be:
+~~~~
+Checking 1
+Checking 3
+Checking 4
+4
+~~~~
+
+For empty case input such as [1, 3, 5] output would be:
+~~~~
+Checking 1
+Checking 3
+Checking 5
+~~~~
+
+Now, lets add the decorator. So the code looks like:
+~~~~
+from beautiful_decorators import supress_output
+
+@supress_output
+def find_even(l):
+	for i in l:
+		print(f'Checking {i}')
+		if i % 2 == 0:
+			return i
+	else:
+		return None
+	
+
+if __name__ == "__main__":
+	even = find_even([1,3,5])
+	if even:
+		print(f'{even}')
+~~~~
+
+And the outputs would look like (respectively):
+~~~~
+4
+~~~~
+And:
+~~~~
+~~~~
+
