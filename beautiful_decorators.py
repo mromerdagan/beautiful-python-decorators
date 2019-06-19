@@ -52,23 +52,18 @@ def supress_output(func):
 		return ret
 	return inner
 
-## Class as decorators:
-## Class needs to get func in constructor, and also be callable
+# Class as decorators:
+# Class needs to get func in constructor, and also be callable
 
-#import functools
-#
-#class CountCalls:
-#    def __init__(self, func):
-#        functools.update_wrapper(self, func)
-#        self.func = func
-#        self.num_calls = 0
-#
-#    def __call__(self, *args, **kwargs):
-#        self.num_calls += 1
-#        print(f"Call {self.num_calls} of {self.func.__name__!r}")
-#        return self.func(*args, **kwargs)
-#
-#@CountCalls
-#def say_whee():
-#    print("Whee!")
-#
+import functools
+
+class CountCalls:
+    def __init__(self, func):
+        functools.update_wrapper(self, func)
+        self.func = func
+        self.num_calls = 0
+
+    def __call__(self, *args, **kwargs):
+        self.num_calls += 1
+        return self.func(*args, **kwargs)
+

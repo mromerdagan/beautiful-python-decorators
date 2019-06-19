@@ -331,3 +331,48 @@ then restore it).
 Nice!
 
 
+### CountCalls
+This one was taken from [Real Python](https://realpython.com/primer-on-python-decorators) 
+as is, I put it here because I find it beautiful.
+
+So CountCalls is another decorator that helps monitor the execution of a
+function. Whenever a function is called, a counter is being incremented, it can
+be accessed as a field (will be clearer in the exmple).
+
+It worth noting that this decorator is implemented as a (callable) class rather
+then a function. In order to to so the implementing class needs to get function
+refernce in the constructor, and implement the "\_\_call\_\_" function, so the
+returning object is callable.
+
+Usage example:
+~~~~
+#!/usr/bin/python3
+
+from beautiful_decorators import CountCalls
+
+@CountCalls
+def say_whee():
+    print("Whee!")
+
+if __name__ == "__main__":
+	say_whee()
+	print(say_whee.num_calls)
+	say_whee()
+	say_whee()
+	say_whee()
+	print(say_whee.num_calls)
+~~~~
+
+Result:
+~~~~
+Whee!
+1
+Whee!
+Whee!
+Whee!
+4
+~~~~
+
+That's it for now. I'll keep adding beautiful decorators to this git repo when
+I encounter them. Feel free to contribute by yourselfs.
+
