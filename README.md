@@ -1,5 +1,6 @@
 # beautiful-python-decorators
-Just a collection of many beautiful python decorators
+Just a collection of some beautiful python decorators I think should be kept for
+a rainy day
 
 The decorators implementaion can be found at 
 [beautiful_decorators.py](https://github.com/mromerdagan/beautiful-python-decorators/blob/master/beautiful_decorators.py)
@@ -9,17 +10,37 @@ Below you can find usage examples to all of the decorators + explanations
 *If you're unfamiliar with python decorators, you can read 
 [this great article](https://realpython.com/primer-on-python-decorators/)*
 
-*In short: python decorator is a function that get another function as parameter,
-and returns a new function. This might sound cumbersome, but if you use the
-terminology of 'decoration' it becomes easier: the decorator gets a function and
-returns a new decorated one. The decoration can be: adding functionality, adding
-debug information, and so forth*
+*In short: python decorator is a function that gets another function as a
+parameter, and returns a new function. This might sound cumbersome, but if you
+use the terminology of 'decoration', it becomes easier: the decorator gets a
+function and returns it, but with some "decoration" (=modification). The
+decoration can be: adding functionality, adding debug information, and so
+forth.*
 
+*Syntax: If you want to decorate a function with decorator named 'dec', you add
+a @dec at the line above its definition. Suppose the function name is 'foo'- it
+would look like this:*
+~~~~
+@dec
+def foo():
+	# implenetation
+	return 'foo'
+~~~~
+
+*This is a syntactic sugar for:*
+~~~~
+def foo():
+	# implenetation
+	return 'foo'
+foo = dec(foo)       # <--- foo is being decorated
+~~~~
+
+So, here are the decorators:
 
 ### @trace
-This decorator shows all calls to a function, and return values. This becomes 
-handy when investigating the nature of complex functions, especially if they're
-recursive.
+This decorator will print all calls to a function when they are being made, and
+return values. This becomes handy when investigating the nature of complex
+functions, especially if they're recursive.
 
 Usage example:
 ~~~~
@@ -50,7 +71,8 @@ return 6
 ~~~~
 
 A more sophisticated version of `trace` is available as `beautiful_trace`, which
-kind of does the same, but in addition show the "depth" of the recursion visually.
+kind of does the same, but in addition represent the "depth" of the recursion
+level as indentations.
 
 Usage example:
 ~~~~
@@ -104,23 +126,23 @@ Total time: 4.004046440124512
 ~~~~
 
 ### @memoize
-> *memoization or memoisation is an optimization technique used primarily to speed
-up computer programs by storing the results of expensive function calls and 
-returning the cached result when the same inputs occur again.* - 
+> *memoization or memoisation is an optimization technique used primarily to
+speed up computer programs by storing the results of expensive function calls
+and returning the cached result when the same inputs occur again.* - 
 [wikipedia](https://en.wikipedia.org/wiki/Memoization)
 
 Before I start talking about @memoize, its worth noting that in python 3 there
 is a built in memoization decorator- `functools.lru_cache`. Usage is as simple
 as adding @functools.lru_cache above a function definition. Having said that,
-the @memoize decorator is nice for education and learning and I do reccomend
-having a look at this section.
+the @memoize decorator is nice for education and learning and I do recomend at
+least having a look at it.
 
-Consider fibonacci function that uses recursion (I know recursion is not a good
-idea here! it's for the sake of education!)  
+Consider fibonacci function that uses recursion (I'm not recommending using
+recursion here! it's for the sake of education only)  
 So, let's look at the number of calculations needed to compute rec_fib(5). We 
 will do that using our beloved `beautiful_trace` from two paragraphs ago :)
 
-So the code is something like this:
+The code:
 ~~~~
 #!/usr/bin/python3
 
@@ -137,7 +159,7 @@ if __name__ == "__main__":
 	rec_fibo(5)
 ~~~~
 
-And the result is:
+And the result:
 ~~~~
 |-- rec_fibo 5
 |  |-- rec_fibo 4
@@ -228,19 +250,20 @@ The result after the change:
 ~~~~
 
 It is clear that now each call to rec_fibo is done only once per number.
-With n>5 this is critical runtime improvement. Of course, nothing is for free-
-this improvement costs us with memory being used to store the results but most
-of the time it worth it.
+The greater n is, the greater runtime improvement we get. Of course, nothing
+comes for free-
+this improvement costs us with memory being used to store the results but for
+many cases we would'nt mide paying this price.
 
 ### @supress_output
-Generally speacking, functions can do two things: return values, and have "side
+Generally speaking, functions can do two things: return values, and have "side
 effects". Many times they do both. For example, some functions can calculate
 some value (to return) and print something regarding the process (side effect).
-However, you might want to supress output (if this is a deamno that runs in bg,
+However, you might want to supress output (if this is a deamon that runs in bg,
 for instace).  
-This is where @supress_output comes in.
+This is where @supress_output can become handy.
 
-Let's see an example:  
+Let's look at an example:  
 Suppose we have a function that gets a list of integers and returns the first
 even element, if any. It would look something like this:
 
@@ -275,7 +298,7 @@ Checking 3
 Checking 5
 ~~~~
 
-Now, lets add the decorator. So the code looks like:
+Now, lets add the decorator. So now the code looks like this:
 ~~~~
 from beautiful_decorators import supress_output
 
@@ -302,4 +325,9 @@ And the outputs would look like (respectively):
 And:
 ~~~~
 ~~~~
+
+(the trick used by this decorator is replacting the process stdout with devnull,
+then restore it).
+Nice!
+
 
